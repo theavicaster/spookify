@@ -2,4 +2,4 @@
 
 ---
 
-![](snapshots/Database Design.png)
+![](snapshots/database_design.png?raw=true "ER Diagram")
