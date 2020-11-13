@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class NotFoundExceptionResponse {
+public class JWTLoginSuccessResponse {
 
-    private String notFound;
+    private boolean success;
+    private String token;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class NotFoundExceptionResponse {
+public class AlreadyExistsExceptionResponse {
 
-    private String notFound;
+    private String alreadyExists;
 }
