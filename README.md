@@ -282,3 +282,16 @@ They require user ID, decoded from a claim within JWT from the request header se
 </details>
 
 
+### Usage
+
+---
+
+#### Set environment variables
+
+- On Linux, open the file `/etc/environment` using a text editor 
+- Add the line `export JWT_SECRET=YourJWTSecret` to set a system environment variable
+- Run `source /etc/environment` or login again for changes to take effect
+
+
+
+
