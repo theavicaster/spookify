@@ -28,7 +28,10 @@ public class Playlist {
     private User user;
 
     @JacksonIdSerializer
-    @ManyToMany(mappedBy = "playlists", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "SONG_PLAYLIST",
+            joinColumns = @JoinColumn(name = "PLAYLIST_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SONG_ID"))
     private List<Song> songs = new ArrayList<>();
 
     @PrePersist

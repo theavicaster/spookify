@@ -37,10 +37,7 @@ public class Song {
     private List<User> likedUsers = new ArrayList<>();
 
     @JacksonIdSerializer
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "SONG_PLAYLIST",
-            joinColumns = @JoinColumn(name = "SONG_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PLAYLIST_ID"))
+    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
     private List<Playlist> playlists = new ArrayList<>();
 
     @JacksonIdSerializer
