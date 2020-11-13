@@ -32,7 +32,6 @@ They require user ID, decoded from a claim within JWT from the request header se
 | **/api/users/register**                       | POST        | Public    | Register user                       | `{"username":"bruceW","fullName":"Bruce Wayne","password":"alfred","confirmPassword":"alfred"}` |
 | **/api/users/login**                          | POST        | Public    | Login as user                       | `{"username":"bruceW","password":"alfred"}`                                                     |
 | **/api/likes/songs**                          | GET         | Protected | Read all songs liked by a user      |                                                                                                 |
-| **/api/likes/songs/:song_id**                 | GET         | Protected | Read like/unlike status of a song   |                                                                                                 |
 | **/api/likes/songs/:song_id**                 | PUT         | Protected | Toggle like/unlike status of a song |                                                                                                 |
 | **/api/playlists**                            | GET         | Protected | Read all playlists                  |                                                                                                 |
 | **/api/playlists/:playlist_id**               | GET         | Protected | Read playlist by ID                 |                                                                                                 |
