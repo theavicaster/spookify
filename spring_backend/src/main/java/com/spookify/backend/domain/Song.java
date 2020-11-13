@@ -1,5 +1,6 @@
 package com.spookify.backend.domain;
 
+import com.spookify.backend.utils.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
 @Entity
+@Data
 public class Song {
 
     @Id
@@ -18,28 +19,32 @@ public class Song {
     private String name;
     private String link;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Artist artist;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Album album;
 
-    @ManyToMany
+    @JacksonIdSerializer
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "SONG_GENRE",
             joinColumns = @JoinColumn(name = "SONG_ID"),
             inverseJoinColumns = @JoinColumn(name = "GENRE_ID"))
     private List<Genre> genres = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "likedSongs")
+    @JacksonIdSerializer
+    @ManyToMany(mappedBy = "likedSongs", fetch = FetchType.LAZY)
     private List<User> likedUsers = new ArrayList<>();
 
-    @ManyToMany
+    @JacksonIdSerializer
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "SONG_PLAYLIST",
             joinColumns = @JoinColumn(name = "SONG_ID"),
             inverseJoinColumns = @JoinColumn(name = "PLAYLIST_ID"))
     private List<Playlist> playlists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "song")
+    @JacksonIdSerializer
+    @OneToMany(mappedBy = "song", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     public void addGenre(Genre genre) {
@@ -73,5 +78,4 @@ public class Song {
     public void removeComment(Comment comment) {
         this.comments.remove(comment);
     }
-
 }

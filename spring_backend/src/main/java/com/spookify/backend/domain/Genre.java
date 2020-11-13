@@ -1,14 +1,14 @@
 package com.spookify.backend.domain;
 
+import com.spookify.backend.utils.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Data
 @Entity
+@Data
 public class Genre {
 
     @Id
@@ -18,7 +18,8 @@ public class Genre {
     private String name;
     private String photo_url;
 
-    @ManyToMany(mappedBy = "genres")
+    @JacksonIdSerializer
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private List<Song> songs = new ArrayList<>();
 
     public void addSong(Song song) {
@@ -28,5 +29,4 @@ public class Genre {
     public void removeSong(Song song) {
         this.songs.remove(song);
     }
-
 }

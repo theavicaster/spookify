@@ -7,8 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Data
 @Entity
+@Data
 public class Comment {
 
     @Id
@@ -23,10 +23,10 @@ public class Comment {
     @Size(max = 255, message = "Comment should be of maximum 255 characters")
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Song song;
 
     @PrePersist
@@ -38,6 +38,4 @@ public class Comment {
     protected void onUpdate() {
         this.updatedAt = new Date();
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.spookify.backend.domain;
 
+import com.spookify.backend.utils.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
+@Data
 public class Playlist {
 
     @Id
@@ -23,10 +24,11 @@ public class Playlist {
     private Date createdAt;
     private Date updatedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToMany(mappedBy = "playlists")
+    @JacksonIdSerializer
+    @ManyToMany(mappedBy = "playlists", fetch = FetchType.LAZY)
     private List<Song> songs = new ArrayList<>();
 
     @PrePersist
@@ -46,5 +48,4 @@ public class Playlist {
     public void removeSong(Song song) {
         this.songs.remove(song);
     }
-
 }

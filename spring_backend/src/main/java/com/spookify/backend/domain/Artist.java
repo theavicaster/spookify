@@ -1,5 +1,6 @@
 package com.spookify.backend.domain;
 
+import com.spookify.backend.utils.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data
 @Entity
+@Data
 public class Artist {
 
     @Id
@@ -18,10 +19,12 @@ public class Artist {
     private String name;
     private String photo_url;
 
-    @OneToMany(mappedBy = "artist")
+    @JacksonIdSerializer
+    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Album> albums = new ArrayList<>();
 
-    @OneToMany(mappedBy = "artist")
+    @JacksonIdSerializer
+    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Song> songs = new ArrayList<>();
 
     public void addAlbum(Album album) {
