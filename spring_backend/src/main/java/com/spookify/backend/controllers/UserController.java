@@ -5,6 +5,8 @@ import com.spookify.backend.payload.requests.LoginRequest;
 import com.spookify.backend.payload.responses.JWTLoginSuccessResponse;
 import com.spookify.backend.security.JwtTokenProvider;
 import com.spookify.backend.services.UserService;
+import com.spookify.backend.services.ValidationErrorService;
+import com.spookify.backend.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +28,18 @@ import static com.spookify.backend.security.SecurityConstants.TOKEN_PREFIX;
 @RequiredArgsConstructor
 public class UserController {
 
-    //private final MapValidationErrorService mapValidationErrorService;
+    private final ValidationErrorService validationErrorService;
     private final UserService userService;
-    //private final UserValidator userValidator;
+    private final UserValidator userValidator;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
 
-//        ResponseEntity<?> errorMap = mapValidationErrorService.getValidationErrors(result);
-//        if (errorMap != null)
-//            return errorMap;
+        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
+        if (errorMap != null)
+            return errorMap;
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -56,11 +58,11 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
 
-//        userValidator.validate(user, result);
-//
-//        ResponseEntity<?> errorMap = mapValidationErrorService.getValidationErrors(result);
-//        if (errorMap != null)
-//            return errorMap;
+        userValidator.validate(user, result);
+
+        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
+        if (errorMap != null)
+            return errorMap;
 
         User newUser = userService.saveUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);

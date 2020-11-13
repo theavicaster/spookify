@@ -281,6 +281,46 @@ They require user ID, decoded from a claim within JWT from the request header se
 
 </details>
 
+<details><summary><b>Playlist</b></summary>
+
+```json
+{
+    "id": 1,
+    "name": "Go-to Music",
+    "createdAt": "2020-11-13 13:30:32",
+    "updatedAt": "2020-11-13 13:30:32",
+    "user": {
+        "id": 1,
+        "username": "theavicaster",
+        "fullName": "Avinandan Banerjee",
+        "createdAt": "2020-11-13 13:30:32",
+        "updatedAt": "2020-11-13 13:30:32",
+        "likedSongs": [
+            2,
+            5,
+            9,
+            11,
+            13
+        ],
+        "playlists": [
+            1
+        ],
+        "comments": [
+            1
+        ]
+    },
+    "songs": [
+        3,
+        5,
+        7,
+        12,
+        13
+    ]
+}
+```
+
+</details>
+
 
 ### Usage
 

@@ -19,6 +19,7 @@ public final class SecurityConstants {
     public static final String HEADER_STRING = "Authorization";
     public static final long EXPIRATION_TIME = 3600_000;
     public static String JWT_SECRET;
+
     private SecurityConstants() {
     }
 
