@@ -2,8 +2,10 @@ package com.spookify.backend.controllers;
 
 import com.spookify.backend.exceptions.AlreadyExistsException;
 import com.spookify.backend.exceptions.NotFoundException;
+import com.spookify.backend.exceptions.UnauthorizedUserException;
 import com.spookify.backend.payload.responses.AlreadyExistsExceptionResponse;
 import com.spookify.backend.payload.responses.NotFoundExceptionResponse;
+import com.spookify.backend.payload.responses.UnauthorizedUserExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,5 +31,12 @@ public class ExceptionResponseController extends ResponseEntityExceptionHandler 
 
         AlreadyExistsExceptionResponse exceptionResponse = new AlreadyExistsExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<UnauthorizedUserExceptionResponse> handleUnauthorizedUserException(UnauthorizedUserException ex, WebRequest req) {
+
+        UnauthorizedUserExceptionResponse exceptionResponse = new UnauthorizedUserExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 }

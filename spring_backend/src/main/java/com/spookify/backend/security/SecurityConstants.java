@@ -15,18 +15,15 @@ public final class SecurityConstants {
     public static final String PLAYLIST_URLS = "/api/playlist/**";
     public static final String LIKE_URLS = "/api/likes/**";
     public static final String H2_URLS = "/h2-console/**";
-
-    public static String JWT_SECRET;
-
-    @Value("${jwt.secret}")
-    public void setJwtSecret(String jwtSecret){
-        SecurityConstants.JWT_SECRET = jwtSecret;
-    }
-
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final long EXPIRATION_TIME = 3600_000;
-
+    public static String JWT_SECRET;
     private SecurityConstants() {
+    }
+
+    @Value("${jwt.secret}")
+    public void setJwtSecret(String jwtSecret) {
+        SecurityConstants.JWT_SECRET = jwtSecret;
     }
 }
