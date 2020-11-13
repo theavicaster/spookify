@@ -144,7 +144,7 @@ INSERT INTO LIKED(SONG_ID, USER_ID)
 VALUES(13, 2);
 
 INSERT INTO COMMENT(ID, SONG_ID, USER_ID, CONTENT, CREATED_AT, UPDATED_AT)
-VALUES(1, 2, 1, 'John Mayer is one of the few artists still making blues relevant today.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+VALUES(1, 1, 1, 'John Mayer is one of the few artists still making blues relevant today.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO COMMENT(ID, SONG_ID, USER_ID, CONTENT, CREATED_AT, UPDATED_AT)
 VALUES(2, 1, 2, 'I absolutely agree with you!', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 

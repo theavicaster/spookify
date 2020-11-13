@@ -192,4 +192,93 @@ They require user ID, decoded from a claim within JWT from the request header se
 
 </details>
 
+<details><summary><b>Comment</b></summary>
+
+```json
+{
+    "id": 1,
+    "createdAt": "2020-11-13 06:27:27",
+    "updatedAt": "2020-11-13 06:27:27",
+    "content": "John Mayer is one of the few artists still making blues relevant today.",
+    "user": {
+        "id": 1,
+        "username": "theavicaster",
+        "fullName": "Avinandan Banerjee",
+        "createdAt": "2020-11-13 06:27:27",
+        "updatedAt": "2020-11-13 06:27:27",
+        "likedSongs": [
+            2,
+            5,
+            9,
+            11,
+            13
+        ],
+        "playlists": [
+            1
+        ],
+        "comments": [
+            1
+        ]
+    },
+    "song": {
+        "id": 2,
+        "name": "Slow Dancing in a Burning Room",
+        "link": "https://www.youtube.com/watch?v=5MkfBNl_3pw&ab_channel=JohnMayer-Topic",
+        "artist": {
+            "id": 1,
+            "name": "John Mayer",
+            "photo_url": "https://media.gettyimages.com/photos/john-mayer-performs-onstage-during-mac-miller-a-celebration-of-life-picture-id1062205076?k=6&m=1062205076&s=612x612&w=0&h=fTcSaycu5ghOr9L3Gv7tmrslpYvB7ehn-rXcI04kFzY=",
+            "albums": [
+                1,
+                2
+            ],
+            "songs": [
+                1,
+                2,
+                3,
+                4
+            ]
+        },
+        "album": {
+            "id": 1,
+            "name": "Continuum",
+            "album_art_url": "https://i.ebayimg.com/images/g/v14AAOSwkiVeQmnq/s-l500.jpg",
+            "artist": {
+                "id": 1,
+                "name": "John Mayer",
+                "photo_url": "https://media.gettyimages.com/photos/john-mayer-performs-onstage-during-mac-miller-a-celebration-of-life-picture-id1062205076?k=6&m=1062205076&s=612x612&w=0&h=fTcSaycu5ghOr9L3Gv7tmrslpYvB7ehn-rXcI04kFzY=",
+                "albums": [
+                    1,
+                    2
+                ],
+                "songs": [
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            },
+            "songs": [
+                1,
+                2
+            ]
+        },
+        "genres": [
+            2,
+            5
+        ],
+        "likedUsers": [
+            1,
+            2
+        ],
+        "playlists": [],
+        "comments": [
+            1
+        ]
+    }
+}
+```
+
+</details>
+
 
