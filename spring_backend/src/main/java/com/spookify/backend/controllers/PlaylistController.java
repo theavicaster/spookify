@@ -47,8 +47,8 @@ public class PlaylistController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> getPlaylistById(@Valid @RequestBody PlaylistNameRequest playlistNameRequest,
-                                             BindingResult result, Authentication authentication) {
+    public ResponseEntity<?> createPlaylistById(@Valid @RequestBody PlaylistNameRequest playlistNameRequest,
+                                                BindingResult result, Authentication authentication) {
 
         ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
         if (errorMap != null)
@@ -60,8 +60,8 @@ public class PlaylistController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updatePlaylistById(@Valid @RequestBody PlaylistNameRequest playlistNameRequest,
-                                                @PathVariable Long id, BindingResult result, Authentication authentication) {
+    public ResponseEntity<?> updatePlaylistById(@PathVariable Long id, @Valid @RequestBody PlaylistNameRequest playlistNameRequest,
+                                                BindingResult result, Authentication authentication) {
 
         ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
         if (errorMap != null)
