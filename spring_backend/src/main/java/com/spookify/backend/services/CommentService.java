@@ -39,8 +39,6 @@ public class CommentService {
         comment.setUser(user);
         comment.setSong(song);
 
-        user.addComment(comment);
-        song.addComment(comment);
         return commentRepository.save(comment);
     }
 

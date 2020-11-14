@@ -1,10 +1,9 @@
 package com.spookify.backend.domain;
 
-import com.spookify.backend.utils.JacksonIdSerializer;
+import com.spookify.backend.annotations.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,6 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name should not be blank")
     private String name;
 
     @Column(updatable = false)

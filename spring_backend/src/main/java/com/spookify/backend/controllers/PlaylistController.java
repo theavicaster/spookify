@@ -4,12 +4,10 @@ import com.spookify.backend.domain.Playlist;
 import com.spookify.backend.domain.User;
 import com.spookify.backend.payload.requests.PlaylistNameRequest;
 import com.spookify.backend.services.PlaylistService;
-import com.spookify.backend.services.ValidationErrorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,7 +19,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class PlaylistController {
 
-    private final ValidationErrorService validationErrorService;
     private final PlaylistService playlistService;
 
     @GetMapping("")
@@ -48,11 +45,7 @@ public class PlaylistController {
 
     @PostMapping("")
     public ResponseEntity<?> createPlaylistById(@Valid @RequestBody PlaylistNameRequest playlistNameRequest,
-                                                BindingResult result, Authentication authentication) {
-
-        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
-        if (errorMap != null)
-            return errorMap;
+                                                Authentication authentication) {
 
         User user = (User) authentication.getPrincipal();
         Playlist playlist = playlistService.savePlaylist(playlistNameRequest.getName(), user);
@@ -61,11 +54,7 @@ public class PlaylistController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updatePlaylistById(@PathVariable Long id, @Valid @RequestBody PlaylistNameRequest playlistNameRequest,
-                                                BindingResult result, Authentication authentication) {
-
-        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
-        if (errorMap != null)
-            return errorMap;
+                                                Authentication authentication) {
 
         User user = (User) authentication.getPrincipal();
         Playlist playlist = playlistService.updatePlaylistById(playlistNameRequest.getName(), id, user);

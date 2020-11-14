@@ -1,4 +1,4 @@
-package com.spookify.backend.utils;
+package com.spookify.backend.annotations;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;

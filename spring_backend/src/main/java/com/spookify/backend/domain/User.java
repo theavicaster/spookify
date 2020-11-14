@@ -2,7 +2,7 @@ package com.spookify.backend.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.spookify.backend.utils.JacksonIdSerializer;
+import com.spookify.backend.annotations.JacksonIdSerializer;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

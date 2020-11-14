@@ -1,6 +1,6 @@
 package com.spookify.backend.domain;
 
-import com.spookify.backend.utils.JacksonIdSerializer;
+import com.spookify.backend.annotations.JacksonIdSerializer;
 import lombok.Data;
 
 import javax.persistence.*;

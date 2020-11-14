@@ -5,8 +5,7 @@ import com.spookify.backend.payload.requests.LoginRequest;
 import com.spookify.backend.payload.responses.JWTLoginSuccessResponse;
 import com.spookify.backend.security.JwtTokenProvider;
 import com.spookify.backend.services.UserService;
-import com.spookify.backend.services.ValidationErrorService;
-import com.spookify.backend.validators.UserValidator;
+import com.spookify.backend.validators.PasswordValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +14,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.spookify.backend.security.SecurityConstants.TOKEN_PREFIX;
 
@@ -28,18 +31,13 @@ import static com.spookify.backend.security.SecurityConstants.TOKEN_PREFIX;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final ValidationErrorService validationErrorService;
     private final UserService userService;
-    private final UserValidator userValidator;
+    private final PasswordValidator passwordValidator;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
-
-        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
-        if (errorMap != null)
-            return errorMap;
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -58,11 +56,17 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
 
-        userValidator.validate(user, result);
+        passwordValidator.validate(user, result);
 
-        ResponseEntity<?> errorMap = validationErrorService.getValidationErrors(result);
-        if (errorMap != null)
-            return errorMap;
+        if(result.hasErrors()){
+
+            Map<String, String> errorMap = new HashMap<>();
+            for (FieldError error : result.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            }
+
+            return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+        }
 
         User newUser = userService.saveUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);

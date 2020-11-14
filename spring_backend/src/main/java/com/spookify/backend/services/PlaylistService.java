@@ -65,7 +65,6 @@ public class PlaylistService {
         playlist.setName(name);
         playlist.setUser(user);
 
-        user.addPlaylist(playlist);
         return playlistRepository.save(playlist);
     }
 
