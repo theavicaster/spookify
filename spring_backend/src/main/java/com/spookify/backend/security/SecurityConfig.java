@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(GENRE_URLS).permitAll()
                 .antMatchers(HttpMethod.GET, COMMENT_URLS).permitAll()
                 .antMatchers(H2_URLS).permitAll()
+                .antMatchers(SWAGGER_URLS).permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

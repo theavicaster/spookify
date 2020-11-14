@@ -15,6 +15,12 @@ public final class SecurityConstants {
     public static final String PLAYLIST_URLS = "/api/playlist/**";
     public static final String LIKE_URLS = "/api/likes/**";
     public static final String H2_URLS = "/h2-console/**";
+    public static final String[] SWAGGER_URLS = {
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final long EXPIRATION_TIME = 3600_000;

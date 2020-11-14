@@ -18,7 +18,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +57,7 @@ public class UserController {
 
         passwordValidator.validate(user, result);
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
 
             Map<String, String> errorMap = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {

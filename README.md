@@ -321,6 +321,10 @@ They require user ID, decoded from a claim within JWT from the request header se
 </details>
 
 
+Swagger documentation can be found at `localhost:8080/swagger-ui/`
+
+![Swagger Documentation](snapshots/swagger_docs.png?raw=true "Swagger Documentation")
+
 ### Usage
 
 ---
