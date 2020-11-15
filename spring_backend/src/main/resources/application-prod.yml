@@ -1,0 +1,14 @@
+jwt:
+  secret: ${JWT_SECRET}
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/spookify
+    username: ${SPOOKIFY_USER}
+    password: ${SPOOKIFY_PASSWORD}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update

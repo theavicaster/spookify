@@ -1,0 +1,12 @@
+jwt:
+  secret: 3SiRSHaXtsxyBTG4GPtybzU38DHQgeBIN7LLRr05wvHPstz8nHyYOicCkQ892YA
+spring:
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:testdb
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create

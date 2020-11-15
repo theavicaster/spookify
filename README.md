@@ -333,12 +333,35 @@ Swagger documentation can be found at `localhost:8080/swagger-ui/`
 
 ---
 
+#### Set up MySQL
+
+- Ensure that there is a database named `spookify` created
+- Ensure that there is a user with DDL permissions
+
 #### Set environment variables
 
 - On Linux, open the file `/etc/environment` using a text editor 
-- Add the line `export JWT_SECRET=YourJWTSecret` to set a system environment variable
+- Add the lines 
+  ```
+  export JWT_SECRET=YourJWTSecret
+  export MYSQL_HOST=YourMySQLHost
+  export SPOOKIFY_USER=YourMySQLUsername
+  export SPOOKIFY_PASSWORD=YourMySQLPassword
+  ``` 
+  to set system environment variables for the production environment
 - Run `source /etc/environment` or login again for changes to take effect
 
+#### Run the server
 
+- (Optional) Build the Uber JAR with
+  ```
+    cd spring_backend
+    mvn clean package
+  ```
+- Use either the generated JAR in `spring_backend/target/spookify-backend-0.0.1-SNAPSHOT.jar`, or the provided JAR in the repository root folder
+- Run `java -jar spookify-backend-0.0.1-SNAPSHOT.jar`
+- Tomcat server is running at `localhost:8080`
 
+#### Bootstrap data
 
+- Populate the tables with initial data from the DML in `spring_backend/src/main/resources/data-h2.sql`, after the app is running
