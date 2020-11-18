@@ -1,5 +1,5 @@
 
->#### API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)
+**API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)**
 
 ### Database Design
 
@@ -363,7 +363,7 @@ Swagger documentation can be found at `localhost:8080/swagger-ui/`
     cd spring_backend
     mvn clean package
   ```
-- Use either the generated JAR in `spring_backend/target/spookify-backend-0.0.1-SNAPSHOT.jar`, or the provided JAR in the repository root folder
+- Use either the generated JAR in `spring_backend/target/spookify-backend-0.0.1-SNAPSHOT.jar`, or the provided JAR in the repository releases
 - Run `java -jar spookify-backend-0.0.1-SNAPSHOT.jar`
 - Tomcat server is running at `localhost:8080`
 
