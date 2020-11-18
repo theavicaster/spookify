@@ -3,7 +3,7 @@ jwt:
 spring:
   datasource:
     platform: postgresql
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/spookify
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:spookify}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
   h2:
@@ -12,3 +12,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+server:
+  port: ${PORT:8080}
