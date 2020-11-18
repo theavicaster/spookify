@@ -1,3 +1,6 @@
+
+>#### API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)
+
 ### Database Design
 
 ---
@@ -329,11 +332,11 @@ Swagger documentation can be found at `localhost:8080/swagger-ui/`
 
 ![Swagger Documentation](snapshots/swagger_docs.png?raw=true "Swagger Documentation")
 
-### Usage
+### Local Usage
 
 ---
 
-#### Set up MySQL
+#### Set up PostgreSQL
 
 - Ensure that there is a database named `spookify` created
 - Ensure that there is a user with DDL permissions
@@ -344,9 +347,11 @@ Swagger documentation can be found at `localhost:8080/swagger-ui/`
 - Add the lines 
   ```
   export JWT_SECRET=YourJWTSecret
-  export MYSQL_HOST=YourMySQLHost
-  export SPOOKIFY_USER=YourMySQLUsername
-  export SPOOKIFY_PASSWORD=YourMySQLPassword
+  export DB_HOST=YourDBHost
+  export DB_PORT=YourDBPort
+  export DB_USER=YourDBUsername
+  export DB_NAME=YourDBName
+  export DB_PASSWORD=YourDBPassword
   ``` 
   to set system environment variables for the production environment
 - Run `source /etc/environment` or login again for changes to take effect
