@@ -17,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "users") // PostgreSQL - reserved keyword 'user'
 public class User implements UserDetails {
 
     @Id

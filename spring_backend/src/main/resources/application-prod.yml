@@ -2,10 +2,10 @@ jwt:
   secret: ${JWT_SECRET}
 spring:
   datasource:
-    platform: mysql
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/spookify
-    username: ${SPOOKIFY_USER}
-    password: ${SPOOKIFY_PASSWORD}
+    platform: postgresql
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/spookify
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   h2:
     console:
       enabled: false
