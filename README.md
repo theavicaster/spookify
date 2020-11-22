@@ -360,6 +360,7 @@ Swagger documentation can be found at `localhost:8080/swagger-ui/`
   export DB_USER=YourDBUsername
   export DB_NAME=YourDBName
   export DB_PASSWORD=YourDBPassword
+  export REDIS_URL=YourRedisURL
   ``` 
   to set system environment variables for the production environment
 - Run `source /etc/environment` or login again for changes to take effect
