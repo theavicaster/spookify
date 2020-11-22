@@ -10,3 +10,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    generate-ddl: true
+    properties:
+      hibernate:
+        generate_statistics: true
+        cache:
+          redisson:
+            config: redisson-dev.yaml
+    show-sql: true

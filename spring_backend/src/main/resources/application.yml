@@ -1,9 +1,20 @@
 spring:
+  cache:
+    type: redis
   profiles:
-    active: prod
+    active: dev
   data:
     jpa:
       repositories:
         bootstrap-mode: default
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  jpa:
+    properties:
+      hibernate:
+        cache:
+          use_query_cache: true
+          use_second_level_cache: true
+          factory_class: org.redisson.hibernate.RedissonRegionFactory
+          redisson:
+            fallback: true

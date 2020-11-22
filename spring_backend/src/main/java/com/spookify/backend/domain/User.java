@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spookify.backend.annotations.JacksonIdSerializer;
 import lombok.Data;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "users") // PostgreSQL - reserved keyword 'user'
 public class User implements UserDetails {
 
