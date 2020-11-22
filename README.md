@@ -1,6 +1,14 @@
 
 **API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)**
 
+### Architecture
+
+---
+
+![Architecture](snapshots/flowchart.svg?raw=true "Flow Diagram")
+
+
+
 ### Database Design
 
 ---

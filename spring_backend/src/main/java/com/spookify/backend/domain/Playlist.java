@@ -2,6 +2,8 @@ package com.spookify.backend.domain;
 
 import com.spookify.backend.annotations.JacksonIdSerializer;
 import lombok.Data;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Cache(region = "playlistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Playlist {
 
     @Id
