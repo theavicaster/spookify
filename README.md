@@ -1,5 +1,5 @@
 
-**API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)**
+**API is deployed to [`https://spookify-music.herokuapp.com`](https://spookify-music.herokuapp.com)**
 
 ### Architecture
 
