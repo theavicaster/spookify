@@ -29,6 +29,7 @@ public class Playlist {
     private User user;
 
     @JacksonIdSerializer
+    @Cache(region = "playlistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "SONG_PLAYLIST",
             joinColumns = @JoinColumn(name = "PLAYLIST_ID"),

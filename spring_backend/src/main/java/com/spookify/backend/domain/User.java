@@ -46,6 +46,7 @@ public class User implements UserDetails {
     private Date updatedAt;
 
     @JacksonIdSerializer
+    @Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "LIKED",
             joinColumns = @JoinColumn(name = "USER_ID"),
@@ -53,10 +54,12 @@ public class User implements UserDetails {
     private List<Song> likedSongs = new ArrayList<>();
 
     @JacksonIdSerializer
+    @Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Playlist> playlists = new ArrayList<>();
 
     @JacksonIdSerializer
+    @Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 

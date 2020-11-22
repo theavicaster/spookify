@@ -23,10 +23,12 @@ public class Artist {
     private String photo_url;
 
     @JacksonIdSerializer
+    @Cache(region = "artistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Album> albums = new ArrayList<>();
 
     @JacksonIdSerializer
+    @Cache(region = "artistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Song> songs = new ArrayList<>();
 
