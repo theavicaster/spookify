@@ -1,3 +1,5 @@
 singleServerConfig:
   address: ${REDIS_URL}
   password: ${REDIS_PASSWORD}
+  connectionPoolSize: 10
+  connectionMinimumIdleSize: 10
