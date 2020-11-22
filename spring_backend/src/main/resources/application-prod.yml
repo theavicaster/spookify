@@ -12,5 +12,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        cache:
+          redisson:
+            config: redisson-prod.yaml
 server:
   port: ${PORT:8080}

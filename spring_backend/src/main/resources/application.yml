@@ -2,7 +2,7 @@ spring:
   cache:
     type: redis
   profiles:
-    active: dev
+    active: prod
   data:
     jpa:
       repositories:
