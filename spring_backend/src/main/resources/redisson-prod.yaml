@@ -1,2 +1,3 @@
 singleServerConfig:
   address: ${REDIS_URL}
+  password: ${REDIS_PASSWORD}
