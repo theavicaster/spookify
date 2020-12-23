@@ -1,5 +1,7 @@
 
-**API is deployed to [`https://spookify-music.herokuapp.com/api/`](https://spookify-music.herokuapp.com/api/)**
+**Live website is available at [`https://spookify-music.netlify.app`](https://spookify-music.netlify.app)**
+
+**API is deployed to [`https://spookify-music.herokuapp.com`](https://spookify-music.herokuapp.com)**
 
 ### Architecture
 
