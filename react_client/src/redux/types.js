@@ -1,0 +1,3 @@
+export const SET_ERRORS = 'SET_ERRORS';
+
+export const SET_LOADING_ALERT = 'SET_LOADING_ALERT';

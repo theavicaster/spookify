@@ -1,13 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Button, Box } from '@material-ui/core';
 
+import { setErrors } from '../../../redux/actions/errorActions';
+import { setLoadingAlert } from '../../../redux/actions/loadingActions';
 import Modal from '../ModalBackdrop/Modal';
 import useStyles from './styles';
 
-const RegisterForm = ({ openFlag, closeHandler }) => {
+const RegisterForm = ({
+  openFlag,
+  closeHandler,
+  setErrors,
+  setLoadingAlert,
+}) => {
   const classes = useStyles();
 
   return (
@@ -48,7 +56,8 @@ const RegisterForm = ({ openFlag, closeHandler }) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          const postLoginForm = async () => {
+          const postRegisterForm = async () => {
+            setLoadingAlert(true);
             try {
               const { data } = await axios.post(
                 'https://spookify-music.herokuapp.com/api/users/register', //TODO change base URL
@@ -56,13 +65,14 @@ const RegisterForm = ({ openFlag, closeHandler }) => {
               );
               console.log(JSON.stringify(data)); //TODO register
             } catch (error) {
-              console.log(error.response); //TODO Redux global toast
+              setErrors(error.response.data);
             }
 
+            setLoadingAlert(false);
             setSubmitting(false);
           };
 
-          postLoginForm();
+          postRegisterForm();
         }}
       >
         {({ submitForm, isSubmitting, errors }) => (
@@ -119,4 +129,11 @@ const RegisterForm = ({ openFlag, closeHandler }) => {
   );
 };
 
-export default RegisterForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setErrors: (errors) => dispatch(setErrors(errors)),
+    setLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(RegisterForm);
