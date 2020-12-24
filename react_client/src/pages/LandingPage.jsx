@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Typography, Dialog, Paper } from '@material-ui/core';
+import { Button, Typography, CircularProgress } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -8,27 +8,55 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
 import SpookifyIcon from '../components/Icons/SpookifyIcon/SpookifyIcon';
+import Modal from '../components/Modals/ModalBackdrop/Modal';
 import useStyles from './styles';
+import LoginForm from '../components/Modals/LoginForm/LoginForm';
+import RegisterForm from '../components/Modals/RegisterForm/RegisterForm';
 
 const LandingPage = () => {
   const classes = useStyles();
 
   const [punModalOpen, setPunModalOpen] = useState(false);
+  const [punModalLoading, setPunModalLoading] = useState(false);
   const [joke, setJoke] = useState({});
 
   const handleClickPunModal = () => {
     setPunModalOpen(true);
-    axios
-      .get('https://official-joke-api.appspot.com/jokes/random')
-      .then((response) => {
-        setJoke(response.data);
-      });
+    setPunModalLoading(true);
+
+    const getJoke = async () => {
+      const { data } = await axios.get(
+        'https://official-joke-api.appspot.com/jokes/random'
+      );
+
+      setPunModalLoading(false);
+      setJoke(data);
+    };
+
+    getJoke();
   };
   const handleClosePunModal = () => {
     setPunModalOpen(false);
   };
 
-  //TODO Button component refactor
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  const handleClickLoginModal = () => {
+    setLoginModalOpen(true);
+  };
+  const handleCloseLoginModal = () => {
+    setLoginModalOpen(false);
+  };
+
+  const [registerModalOpen, setRegisterModalOpen] = useState(false);
+
+  const handleClickRegisterModal = () => {
+    setRegisterModalOpen(true);
+  };
+  const handleCloseRegisterModal = () => {
+    setRegisterModalOpen(false);
+  };
+
   return (
     <Grid align="center" style={{ marginTop: '75px' }}>
       <SpookifyIcon height="8em" width="8em" />
@@ -40,6 +68,7 @@ const LandingPage = () => {
       </Typography>
       <Button
         className={classes.button}
+        onClick={handleClickLoginModal}
         variant="contained"
         color="primary"
         startIcon={<LockOpenIcon />}
@@ -56,6 +85,7 @@ const LandingPage = () => {
       </Button>
       <Button
         className={classes.button}
+        onClick={handleClickRegisterModal}
         variant="contained"
         color="primary"
         startIcon={<PersonAddIcon />}
@@ -75,17 +105,32 @@ const LandingPage = () => {
         Care for a joke or pun?
       </Button>
 
-      <Dialog open={punModalOpen} onClose={handleClosePunModal}>
-        <Paper style={{ padding: '25px', backgroundColor: '#8D99AE' }}>
-          <Typography style={{ textAlign: 'center' }}>{joke.setup}</Typography>
-          <Typography style={{ textAlign: 'center', fontWeight: 'bold' }}>
-            {joke.punchline}
-          </Typography>
-        </Paper>
-      </Dialog>
+      <LoginForm
+        openFlag={loginModalOpen}
+        closeHandler={handleCloseLoginModal}
+      ></LoginForm>
+
+      <RegisterForm
+        openFlag={registerModalOpen}
+        closeHandler={handleCloseRegisterModal}
+      ></RegisterForm>
+
+      <Modal openFlag={punModalOpen} closeHandler={handleClosePunModal}>
+        {punModalLoading ? (
+          <CircularProgress style={{ color: '#ff5050' }} />
+        ) : (
+          <>
+            <Typography style={{ textAlign: 'center' }}>
+              {joke.setup}
+            </Typography>
+            <Typography style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              {joke.punchline}
+            </Typography>
+          </>
+        )}
+      </Modal>
     </Grid>
   );
-  //TODO Modal Refactor
 };
 
 export default LandingPage;

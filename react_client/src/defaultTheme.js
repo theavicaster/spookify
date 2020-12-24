@@ -11,6 +11,7 @@ const defaultTheme = {
       light: '#ffffff',
       headings: '#ff5050',
       buttons: '#4e8d7c',
+      hover: '#707070',
       main: '#8D99AE',
       dark: '#320b86',
     },
