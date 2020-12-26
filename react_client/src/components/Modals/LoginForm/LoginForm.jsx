@@ -23,6 +23,7 @@ const LoginForm = ({
 }) => {
   const classes = useStyles();
   const history = useHistory();
+  
 
   return (
     <>
@@ -54,11 +55,6 @@ const LoginForm = ({
               try {
                 let { data } = await spookifyAPI.post('/users/login', values);
 
-                if (!data) {
-                  // when Heroku server first starts, returns empty post
-                  data = await spookifyAPI.post('/users/login', values).data;
-                }
-
                 const token = data.token;
 
                 localStorage.setItem('jwtToken', token);
@@ -66,14 +62,18 @@ const LoginForm = ({
 
                 const decodedJwt = jwt_decode(token);
                 dispatchCurrentUser(decodedJwt);
+                history.push('/browse');
               } catch (error) {
-                dispatchErrors(error.response.data);
+                if (!error.response) {
+                  // when Heroku server first starts, returns empty POST
+                  postLoginForm();
+                } else {
+                  dispatchErrors(error.response.data);
+                }
               }
 
               dispatchLoadingAlert(false);
               setSubmitting(false);
-
-              history.push('/browse');
             };
 
             postLoginForm();

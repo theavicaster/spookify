@@ -64,14 +64,14 @@ const RegisterForm = ({
             try {
               let { data } = await spookifyAPI.post('/users/register', values);
 
-              if (!data) {
-                // when Heroku server first starts, returns empty post
-                data = await spookifyAPI.post('/users/register', values).data;
-              }
-
               successfulUser = data.username;
             } catch (error) {
-              dispatchErrors(error.response.data);
+              // when Heroku server first starts, returns empty POST
+              if (!error.response) {
+                postRegisterForm();
+              } else {
+                dispatchErrors(error.response.data);
+              }
             }
 
             dispatchLoadingAlert(false);
@@ -96,8 +96,8 @@ const RegisterForm = ({
                 label="Username"
                 helperText="Please enter username"
                 InputLabelProps={{
-                    style: { color: 'black' },
-                  }}
+                  style: { color: 'black' },
+                }}
               />
             </Box>
             <Box margin={1}>
@@ -107,8 +107,8 @@ const RegisterForm = ({
                 type="text"
                 label="Full Name"
                 InputLabelProps={{
-                    style: { color: 'black' },
-                  }}
+                  style: { color: 'black' },
+                }}
               />
             </Box>
             <Box margin={1}>
@@ -118,8 +118,8 @@ const RegisterForm = ({
                 label="Password"
                 name="password"
                 InputLabelProps={{
-                    style: { color: 'black' },
-                  }}
+                  style: { color: 'black' },
+                }}
               />
             </Box>
             <Box margin={1}>
@@ -129,8 +129,8 @@ const RegisterForm = ({
                 label="Confirm Password"
                 name="confirmPassword"
                 InputLabelProps={{
-                    style: { color: 'black' },
-                  }}
+                  style: { color: 'black' },
+                }}
               />
             </Box>
 

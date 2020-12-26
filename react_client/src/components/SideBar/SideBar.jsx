@@ -12,7 +12,11 @@ import Divider from '@material-ui/core/Divider';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols';
 import SearchIcon from '@material-ui/icons/Search';
+import AlbumIcon from '@material-ui/icons/Album';
+import PersonIcon from '@material-ui/icons/Person';
+import CategoryIcon from '@material-ui/icons/Category';
 
 import useStyles from './styles';
 import setJwtToken from '../../utils/setJwtToken';
@@ -84,6 +88,7 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
             }}
           />
         </ListItem>
+
         <ListItem button>
           <ListItemIcon>
             <FavoriteIcon className={classes.icons} />
@@ -98,9 +103,37 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
         </ListItem>
         <ListItem button>
           <ListItemIcon>
-            <MusicNoteIcon className={classes.icons} />
+            <EmojiSymbolsIcon className={classes.icons} />
           </ListItemIcon>
           <ListItemText primary="New Playlist" />
+        </ListItem>
+      </List>
+      <Divider />
+
+      <List>
+        <ListItem button>
+          <ListItemIcon>
+            <MusicNoteIcon className={classes.icons} />
+          </ListItemIcon>
+          <ListItemText primary="Songs" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <AlbumIcon className={classes.icons} />
+          </ListItemIcon>
+          <ListItemText primary="Albums" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <PersonIcon className={classes.icons} />
+          </ListItemIcon>
+          <ListItemText primary="Artists" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <CategoryIcon className={classes.icons} />
+          </ListItemIcon>
+          <ListItemText primary="Genres" />
         </ListItem>
       </List>
       <Divider />

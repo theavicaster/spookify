@@ -3,12 +3,19 @@ import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
+import { setSuccessMessage } from '../../redux/actions/successActions';
+
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
-const SuccessAlert = ({ successMessage }) => {
+const SuccessAlert = ({ successMessage, dispatchSuccessMessage }) => {
   const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    dispatchSuccessMessage('');
+  };
 
   useEffect(() => {
     if (successMessage !== '') {
@@ -22,9 +29,9 @@ const SuccessAlert = ({ successMessage }) => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={open}
         autoHideDuration={5000}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
       >
-        <Alert onClose={() => setOpen(false)} severity="success">
+        <Alert onClose={handleClose} severity="success">
           {successMessage}
         </Alert>
       </Snackbar>
@@ -38,4 +45,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(SuccessAlert);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchSuccessMessage: (message) => dispatch(setSuccessMessage(message)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuccessAlert);
