@@ -1,17 +1,28 @@
 import React from 'react';
+import jwt_decode from 'jwt-decode';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Button, Box } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 import { setErrors } from '../../../redux/actions/errorActions';
 import { setLoadingAlert } from '../../../redux/actions/loadingActions';
+import { setCurrentUser } from '../../../redux/actions/userActions';
 import Modal from '../ModalBackdrop/Modal';
+import spookifyAPI from '../../../api/spookify';
 import useStyles from './styles';
+import setJwtToken from '../../../utils/setJwtToken';
 
-const LoginForm = ({ openFlag, closeHandler, setErrors, setLoadingAlert }) => {
+const LoginForm = ({
+  openFlag,
+  closeHandler,
+  dispatchErrors,
+  dispatchLoadingAlert,
+  dispatchCurrentUser,
+}) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <>
@@ -39,19 +50,30 @@ const LoginForm = ({ openFlag, closeHandler, setErrors, setLoadingAlert }) => {
           }}
           onSubmit={(values, { setSubmitting }) => {
             const postLoginForm = async () => {
-              setLoadingAlert(true);
+              dispatchLoadingAlert(true);
               try {
-                const { data } = await axios.post(
-                  'https://spookify-music.herokuapp.com/api/users/login', //TODO change base URL
-                  values
-                );
-                console.log(JSON.stringify(data)); //TODO login
+                let { data } = await spookifyAPI.post('/users/login', values);
+
+                if (!data) {
+                  // when Heroku server first starts, returns empty post
+                  data = await spookifyAPI.post('/users/login', values).data;
+                }
+
+                const token = data.token;
+
+                localStorage.setItem('jwtToken', token);
+                setJwtToken(token);
+
+                const decodedJwt = jwt_decode(token);
+                dispatchCurrentUser(decodedJwt);
               } catch (error) {
-                setErrors(error.response.data);
+                dispatchErrors(error.response.data);
               }
 
-              setLoadingAlert(false);
+              dispatchLoadingAlert(false);
               setSubmitting(false);
+
+              history.push('/browse');
             };
 
             postLoginForm();
@@ -98,8 +120,9 @@ const LoginForm = ({ openFlag, closeHandler, setErrors, setLoadingAlert }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setErrors: (errors) => dispatch(setErrors(errors)),
-    setLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+    dispatchErrors: (errors) => dispatch(setErrors(errors)),
+    dispatchLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+    dispatchCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
   };
 };
 

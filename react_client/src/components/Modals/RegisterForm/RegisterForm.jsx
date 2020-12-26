@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { Button, Box } from '@material-ui/core';
 
 import { setErrors } from '../../../redux/actions/errorActions';
 import { setLoadingAlert } from '../../../redux/actions/loadingActions';
+import { setSuccessMessage } from '../../../redux/actions/successActions';
 import Modal from '../ModalBackdrop/Modal';
+import spookifyAPI from '../../../api/spookify';
 import useStyles from './styles';
 
 const RegisterForm = ({
   openFlag,
   closeHandler,
-  setErrors,
-  setLoadingAlert,
+  dispatchErrors,
+  dispatchLoadingAlert,
+  dispatchSuccessMessage,
 }) => {
   const classes = useStyles();
 
@@ -57,19 +59,28 @@ const RegisterForm = ({
         }}
         onSubmit={(values, { setSubmitting }) => {
           const postRegisterForm = async () => {
-            setLoadingAlert(true);
+            dispatchLoadingAlert(true);
+            let successfulUser = false;
             try {
-              const { data } = await axios.post(
-                'https://spookify-music.herokuapp.com/api/users/register', //TODO change base URL
-                values
-              );
-              console.log(JSON.stringify(data)); //TODO register
+              let { data } = await spookifyAPI.post('/users/register', values);
+
+              if (!data) {
+                // when Heroku server first starts, returns empty post
+                data = await spookifyAPI.post('/users/register', values).data;
+              }
+
+              successfulUser = data.username;
             } catch (error) {
-              setErrors(error.response.data);
+              dispatchErrors(error.response.data);
             }
 
-            setLoadingAlert(false);
+            dispatchLoadingAlert(false);
             setSubmitting(false);
+
+            if (successfulUser) {
+              dispatchSuccessMessage(`${successfulUser} can now log in`);
+              closeHandler();
+            }
           };
 
           postRegisterForm();
@@ -131,8 +142,9 @@ const RegisterForm = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setErrors: (errors) => dispatch(setErrors(errors)),
-    setLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+    dispatchErrors: (errors) => dispatch(setErrors(errors)),
+    dispatchLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+    dispatchSuccessMessage: (message) => dispatch(setSuccessMessage(message)),
   };
 };
 

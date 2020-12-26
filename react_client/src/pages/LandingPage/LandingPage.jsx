@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 import { Button, Typography, CircularProgress } from '@material-ui/core';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
-import SpookifyIcon from '../components/Icons/SpookifyIcon/SpookifyIcon';
-import Modal from '../components/Modals/ModalBackdrop/Modal';
+import jokeAPI from '../../api/joke';
+import spookifyAPI from '../../api/spookify';
+import SpookifyIcon from '../../components/Icons/SpookifyIcon/SpookifyIcon';
+import Modal from '../../components/Modals/ModalBackdrop/Modal';
 import useStyles from './styles';
-import LoginForm from '../components/Modals/LoginForm/LoginForm';
-import RegisterForm from '../components/Modals/RegisterForm/RegisterForm';
+import LoginForm from '../../components/Modals/LoginForm/LoginForm';
+import RegisterForm from '../../components/Modals/RegisterForm/RegisterForm';
+import setJwtToken from '../../utils/setJwtToken';
+import { setErrors } from '../../redux/actions/errorActions';
+import { setLoadingAlert } from '../../redux/actions/loadingActions';
+import { setCurrentUser } from '../../redux/actions/userActions';
 
-const LandingPage = () => {
+const LandingPage = ({
+  dispatchErrors,
+  dispatchCurrentUser,
+  dispatchLoadingAlert,
+}) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [punModalOpen, setPunModalOpen] = useState(false);
   const [punModalLoading, setPunModalLoading] = useState(false);
@@ -25,9 +38,7 @@ const LandingPage = () => {
     setPunModalLoading(true);
 
     const getJoke = async () => {
-      const { data } = await axios.get(
-        'https://official-joke-api.appspot.com/jokes/random'
-      );
+      const { data } = await jokeAPI.get('/random');
 
       setPunModalLoading(false);
       setJoke(data);
@@ -57,6 +68,41 @@ const LandingPage = () => {
     setRegisterModalOpen(false);
   };
 
+  const handleClickDemo = () => {
+    const postLoginForm = async () => {
+      dispatchLoadingAlert(true);
+
+      const values = {
+        username: 'demoUser',
+        password: 'demoPassword',
+      };
+
+      try {
+        let { data } = await spookifyAPI.post('/users/login', values);
+
+        if (!data) {
+          // when Heroku server first starts, returns empty post
+          data = await spookifyAPI.post('/users/login', values).data;
+        }
+
+        const token = data.token;
+
+        localStorage.setItem('jwtToken', token);
+        setJwtToken(token);
+
+        const decodedJwt = jwt_decode(token);
+        dispatchCurrentUser(decodedJwt);
+      } catch (error) {
+        dispatchErrors(error.response.data);
+      }
+
+      dispatchLoadingAlert(false);
+      history.push('/browse');
+    };
+
+    postLoginForm();
+  };
+
   return (
     <Grid align="center" style={{ marginTop: '75px' }}>
       <SpookifyIcon height="8em" width="8em" />
@@ -77,6 +123,7 @@ const LandingPage = () => {
       </Button>
       <Button
         className={classes.button}
+        onClick={handleClickDemo}
         variant="contained"
         color="primary"
         startIcon={<PlayCircleOutlineIcon />}
@@ -117,13 +164,19 @@ const LandingPage = () => {
 
       <Modal openFlag={punModalOpen} closeHandler={handleClosePunModal}>
         {punModalLoading ? (
-          <CircularProgress style={{ color: '#ff5050' }} />
+          <CircularProgress style={{ color: '#b30000' }} />
         ) : (
           <>
             <Typography style={{ textAlign: 'center' }}>
               {joke.setup}
             </Typography>
-            <Typography style={{ textAlign: 'center', fontWeight: 'bold' }}>
+            <Typography
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: '#b30000',
+              }}
+            >
               {joke.punchline}
             </Typography>
           </>
@@ -133,4 +186,12 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchErrors: (errors) => dispatch(setErrors(errors)),
+    dispatchLoadingAlert: (status) => dispatch(setLoadingAlert(status)),
+    dispatchCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LandingPage);

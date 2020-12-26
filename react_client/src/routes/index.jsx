@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 
 import LandingRoute from './LandingRoute';
-import LandingPage from '../pages/LandingPage';
+import LandingPage from '../pages/LandingPage/LandingPage';
+import BrowsingRoute from './BrowsingRoute';
+import BrowsingPage from '../pages/BrowsingPage/BrowsingPage';
 
 const Routes = () => {
   return (
@@ -10,7 +12,7 @@ const Routes = () => {
       <Switch>
         <Redirect exact from="/" to="/home" />
         <LandingRoute path="/home" component={LandingPage} />
-        {/*<AuthenticatedRoute path="/browse" component={BrowsingLayout} />*/}
+        <BrowsingRoute path="/browse" component={BrowsingPage} />
       </Switch>
     </Router>
   );

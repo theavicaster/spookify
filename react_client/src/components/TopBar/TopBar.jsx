@@ -16,7 +16,9 @@ const TopBar = () => {
     <AppBar className={classes.topBar} position="static">
       <Toolbar>
         <Logo />
+
         <Box flexGrow={1} />
+
         <Typography>Documentation / Source Code</Typography>
         <a
           href="https://github.com/theavicaster/spookify"

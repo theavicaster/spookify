@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "formik": "^2.2.6",
     "formik-material-ui": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
