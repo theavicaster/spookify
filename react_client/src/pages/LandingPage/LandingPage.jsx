@@ -93,6 +93,7 @@ const LandingPage = ({
         const decodedJwt = jwt_decode(token);
         dispatchCurrentUser(decodedJwt);
       } catch (error) {
+        console.log(error);
         dispatchErrors(error.response.data);
       }
 

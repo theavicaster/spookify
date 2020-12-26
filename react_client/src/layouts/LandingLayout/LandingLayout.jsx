@@ -5,7 +5,7 @@ import ErrorAlert from '../../components/Alerts/ErrorAlert';
 import LoadingAlert from '../../components/Alerts/LoadingAlert';
 import SuccessAlert from '../../components/Alerts/SuccessAlert';
 
-const LandingLayout = ({ errors, children }) => {
+const LandingLayout = ({ children }) => {
   return (
     <>
       <TopBar />

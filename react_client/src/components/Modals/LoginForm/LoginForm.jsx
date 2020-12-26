@@ -88,6 +88,9 @@ const LoginForm = ({
                   type="text"
                   label="Username"
                   helperText="Please enter username"
+                  InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
                 />
               </Box>
               <Box margin={1}>
@@ -96,6 +99,9 @@ const LoginForm = ({
                   type="password"
                   label="Password"
                   name="password"
+                  InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
                 />
               </Box>
 

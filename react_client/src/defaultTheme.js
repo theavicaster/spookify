@@ -19,6 +19,9 @@ const defaultTheme = {
       main: '#b30000',
     },
   },
+  layout: {
+    drawerWidth: 250,
+  },
 };
 
 export default defaultTheme;

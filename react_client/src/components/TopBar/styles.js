@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0px 0px 0px 0px',
     display: 'flex',
     justifyContent: 'flexEnd',
+    zIndex: theme.zIndex.drawer + 1,
   },
   iconButton: {
     color: theme.palette.primary.main,

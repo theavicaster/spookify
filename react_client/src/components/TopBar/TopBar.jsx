@@ -13,7 +13,7 @@ const TopBar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar className={classes.topBar} position="static">
+    <AppBar className={classes.topBar}>
       <Toolbar>
         <Logo />
 

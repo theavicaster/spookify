@@ -95,6 +95,9 @@ const RegisterForm = ({
                 type="text"
                 label="Username"
                 helperText="Please enter username"
+                InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
               />
             </Box>
             <Box margin={1}>
@@ -103,6 +106,9 @@ const RegisterForm = ({
                 name="fullName"
                 type="text"
                 label="Full Name"
+                InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
               />
             </Box>
             <Box margin={1}>
@@ -111,6 +117,9 @@ const RegisterForm = ({
                 type="password"
                 label="Password"
                 name="password"
+                InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
               />
             </Box>
             <Box margin={1}>
@@ -119,6 +128,9 @@ const RegisterForm = ({
                 type="password"
                 label="Confirm Password"
                 name="confirmPassword"
+                InputLabelProps={{
+                    style: { color: 'black' },
+                  }}
               />
             </Box>
 
