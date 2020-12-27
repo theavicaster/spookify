@@ -11,7 +11,7 @@ const BrowsingLayout = ({ children }) => {
   const classes = useStyles();
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div >
       <TopBar />
       <SideBar />
       <main className={classes.content}>{children}</main>
