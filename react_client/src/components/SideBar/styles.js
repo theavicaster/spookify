@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   icons: {
     color: '#320b86',
   },
+  link: {
+    color: 'black',
+  },
 }));
 
 export default useStyles;

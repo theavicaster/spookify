@@ -2,29 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 import GridLayout from '../../layouts/GridLayout/GridLayout';
-import SongCard from '../../components/Cards/SongCard';
+import AlbumCard from '../../components/Cards/AlbumCard';
 import spookifyAPI from '../../api/spookify';
 
-const BrowsingPageSongs = () => {
-  const [songsData, setSongsData] = useState([]);
+const BrowsingPageAlbums = () => {
+  const [albumsData, setAlbumsData] = useState([]);
 
   useEffect(() => {
-    const getSongs = async () => {
-      const { data } = await spookifyAPI.get('/songs');
+    const getAlbums = async () => {
+      const { data } = await spookifyAPI.get('/albums');
       //TODO error handler
-      setSongsData(data);
+      setAlbumsData(data);
     };
 
-    getSongs();
+    getAlbums();
   }, []);
 
   return (
     <>
       <GridLayout>
-        {songsData.map((data, index) => {
+        {albumsData.map((data, index) => {
           return (
             <Grid key={data.id} item xs={12} lg={3}>
-              <SongCard
+              <AlbumCard
                 data={data}
                 backgroundColor={index % 2 === 1 ? '#ff5050' : '#8D99AE'}
               />
@@ -36,4 +36,4 @@ const BrowsingPageSongs = () => {
   );
 };
 
-export default BrowsingPageSongs;
+export default BrowsingPageAlbums;

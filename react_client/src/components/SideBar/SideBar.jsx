@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -89,18 +90,24 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
           />
         </ListItem>
 
-        <ListItem button>
-          <ListItemIcon>
-            <FavoriteIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Liked Songs" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <LibraryMusicIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Your Playlists" />
-        </ListItem>
+        <Link style={{ textDecoration: 'none' }} to="/browse/likes">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <FavoriteIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Liked Songs" />
+          </ListItem>
+        </Link>
+
+        <Link style={{ textDecoration: 'none' }} to="/browse/playlists">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <LibraryMusicIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Your Playlists" />
+          </ListItem>
+        </Link>
+
         <ListItem button>
           <ListItemIcon>
             <EmojiSymbolsIcon className={classes.icons} />
@@ -111,30 +118,41 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
       <Divider />
 
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <MusicNoteIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Songs" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <AlbumIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Albums" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <PersonIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Artists" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <CategoryIcon className={classes.icons} />
-          </ListItemIcon>
-          <ListItemText primary="Genres" />
-        </ListItem>
+        <Link style={{ textDecoration: 'none' }} to="/browse/songs">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <MusicNoteIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Songs" />
+          </ListItem>
+        </Link>
+
+        <Link style={{ textDecoration: 'none' }} to="/browse/albums">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <AlbumIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Albums" />
+          </ListItem>
+        </Link>
+
+        <Link style={{ textDecoration: 'none' }} to="/browse/artists">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <PersonIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Artists" />
+          </ListItem>
+        </Link>
+
+        <Link style={{ textDecoration: 'none' }} to="/browse/genres">
+          <ListItem button className={classes.link}>
+            <ListItemIcon>
+              <CategoryIcon className={classes.icons} />
+            </ListItemIcon>
+            <ListItemText primary="Genres" />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
     </Drawer>

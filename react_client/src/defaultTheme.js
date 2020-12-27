@@ -15,6 +15,7 @@ const defaultTheme = {
       main: '#8D99AE',
       dark: '#320b86',
     },
+
     error: {
       main: '#b30000',
     },

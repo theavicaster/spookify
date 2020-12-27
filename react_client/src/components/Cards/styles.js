@@ -5,8 +5,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 250,
     maxWidth: 500,
     minHeight: 325,
-
-    backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(2),
     margin: theme.spacing(1),
   },
@@ -20,9 +18,20 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
+    color: theme.palette.primary.dark,
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  heading: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.primary.light,
+    borderRadius: '5px',
+  },
+  subheading: {
+    backgroundColor: theme.palette.primary.buttons,
+    color: 'white',
+    borderRadius: '5px',
   },
 }));
 

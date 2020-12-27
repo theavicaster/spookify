@@ -10,11 +10,12 @@ import {
   IconButton,
   Collapse,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import useStyles from './styles';
 
-const SongCard = ({ data }) => {
+const AlbumCard = ({ data, backgroundColor }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -26,14 +27,21 @@ const SongCard = ({ data }) => {
     data.name.length >= 18 ? '1.5em' : data.name.length >= 8 ? '2em' : '3em';
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} style={{ backgroundColor: backgroundColor }}>
       <CardActionArea>
         <CardContent>
-          <Typography style={{ fontSize: fontSize }}>{data.name}</Typography>
+          <Typography
+            style={{ fontSize: fontSize }}
+            className={classes.heading}
+          >
+            {data.name}
+          </Typography>
           {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
-          {data.name === 'Breaking the Habit' && <div style={{ height: '2em' }} />}
+          {data.name === 'Breaking the Habit' && (
+            <div style={{ height: '2em' }} />
+          )}
         </CardContent>
-        <CardMedia className={classes.media} image={data.album.album_art_url} />
+        <CardMedia className={classes.media} image={data.album_art_url} />
       </CardActionArea>
       <CardActions>
         <IconButton
@@ -43,19 +51,24 @@ const SongCard = ({ data }) => {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
-          color="seconfary"
         >
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>{data.artist.name}</Typography>
-          <Typography paragraph>{data.album.name}</Typography>
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={`/browse/artists/${data.artist.id}`}
+          >
+            <Typography className={classes.subheading} paragraph>
+              {data.artist.name}
+            </Typography>
+          </Link>
         </CardContent>
       </Collapse>
     </Card>
   );
 };
 
-export default SongCard;
+export default AlbumCard;
