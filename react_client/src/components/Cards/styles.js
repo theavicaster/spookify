@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   subheading: {
     backgroundColor: theme.palette.primary.buttons,
-    color: 'white',
+    color: 'black',
     borderRadius: '5px',
   },
   link: {

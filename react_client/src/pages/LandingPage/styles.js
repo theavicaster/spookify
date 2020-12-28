@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '175px',
     '&:hover': {
       color: theme.palette.primary.light,
-      backgroundColor: theme.palette.primary.hover,
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 }));
