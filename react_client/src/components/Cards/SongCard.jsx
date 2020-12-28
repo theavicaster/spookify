@@ -37,7 +37,8 @@ const SongCard = ({ data, backgroundColor }) => {
             {data.name}
           </Typography>
           {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
-          {data.name === 'Breaking the Habit' && (
+          {(data.name === 'Breaking the Habit' ||
+            data.name === 'When We Were Young') && (
             <div style={{ height: '2em' }} />
           )}
         </CardContent>
@@ -65,17 +66,14 @@ const SongCard = ({ data, backgroundColor }) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Link
-            style={{ textDecoration: 'none' }}
+            className={classes.link}
             to={`/browse/artists/${data.artist.id}`}
           >
             <Typography className={classes.subheading} paragraph>
               {data.artist.name}
             </Typography>
           </Link>
-          <Link
-            style={{ textDecoration: 'none' }}
-            to={`/browse/albums/${data.album.id}`}
-          >
+          <Link className={classes.link} to={`/browse/albums/${data.album.id}`}>
             <Typography className={classes.subheading} paragraph>
               {data.album.name}
             </Typography>

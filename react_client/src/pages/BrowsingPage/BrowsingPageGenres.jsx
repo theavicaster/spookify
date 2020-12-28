@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import GridLayout from '../../layouts/GridLayout/GridLayout';
 import GenreCard from '../../components/Cards/GenreCard';
 import spookifyAPI from '../../api/spookify';
+import useStyles from './styles';
 
 const BrowsingPageGenres = () => {
+  const classes = useStyles();
+
   const [genresData, setGenresData] = useState([]);
 
   useEffect(() => {
@@ -21,9 +24,12 @@ const BrowsingPageGenres = () => {
   return (
     <>
       <GridLayout>
+        <Grid item xs={12}>
+          <Typography className={classes.heading}>Genres</Typography>
+        </Grid>
         {genresData.map((data, index) => {
           return (
-            <Grid key={data.id} item xs={12} lg={3}>
+            <Grid key={data.id} item xs={12} md={6} lg={4}>
               <GenreCard
                 data={data}
                 backgroundColor={index % 2 === 1 ? '#ff5050' : '#8D99AE'}

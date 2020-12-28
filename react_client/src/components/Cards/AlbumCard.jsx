@@ -28,21 +28,24 @@ const AlbumCard = ({ data, backgroundColor }) => {
 
   return (
     <Card className={classes.root} style={{ backgroundColor: backgroundColor }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography
-            style={{ fontSize: fontSize }}
-            className={classes.heading}
-          >
-            {data.name}
-          </Typography>
-          {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
-          {data.name === 'Breaking the Habit' && (
-            <div style={{ height: '2em' }} />
-          )}
-        </CardContent>
-        <CardMedia className={classes.media} image={data.album_art_url} />
-      </CardActionArea>
+      <Link className={classes.link} to={`/browse/albums/${data.id}`}>
+        <CardActionArea>
+          <CardContent>
+            <Typography
+              style={{ fontSize: fontSize }}
+              className={classes.heading}
+            >
+              {data.name}
+            </Typography>
+            {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
+            {data.name === 'Breaking the Habit' && (
+              <div style={{ height: '2em' }} />
+            )}
+          </CardContent>
+          <CardMedia className={classes.media} image={data.album_art_url} />
+        </CardActionArea>
+      </Link>
+
       <CardActions>
         <IconButton
           className={clsx(classes.expand, {
@@ -58,7 +61,7 @@ const AlbumCard = ({ data, backgroundColor }) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Link
-            style={{ textDecoration: 'none' }}
+            className={classes.link}
             to={`/browse/artists/${data.artist.id}`}
           >
             <Typography className={classes.subheading} paragraph>

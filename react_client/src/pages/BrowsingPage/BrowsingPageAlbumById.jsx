@@ -6,26 +6,36 @@ import SongCard from '../../components/Cards/SongCard';
 import spookifyAPI from '../../api/spookify';
 import useStyles from './styles';
 
-const BrowsingPageSongs = () => {
+const BrowsingPageAlbumById = ({ id }) => {
   const classes = useStyles();
 
   const [songsData, setSongsData] = useState([]);
+  const [albumName, setAlbumName] = useState('');
 
   useEffect(() => {
     const getSongs = async () => {
-      const { data } = await spookifyAPI.get('/songs');
+      const { data } = await spookifyAPI.get(`/albums/${id}`);
       //TODO error handler
-      setSongsData(data);
+
+      setAlbumName(data.name);
+
+      let songsArr = [];
+      for (const songId of data.songs) {
+        const songData = await spookifyAPI.get(`/songs/${songId}`);
+        songsArr.push(songData.data);
+      }
+
+      setSongsData(songsArr);
     };
 
     getSongs();
-  }, []);
+  }, [id]);
 
   return (
     <>
       <GridLayout>
         <Grid item xs={12}>
-          <Typography className={classes.heading}>Songs</Typography>
+          <Typography className={classes.heading}>{albumName}</Typography>
         </Grid>
         {songsData.map((data, index) => {
           return (
@@ -42,4 +52,4 @@ const BrowsingPageSongs = () => {
   );
 };
 
-export default BrowsingPageSongs;
+export default BrowsingPageAlbumById;

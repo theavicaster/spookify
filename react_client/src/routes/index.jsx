@@ -8,6 +8,9 @@ import BrowsingPageSongs from '../pages/BrowsingPage/BrowsingPageSongs';
 import BrowsingPageAlbums from '../pages/BrowsingPage/BrowsingPageAlbums';
 import BrowsingPageArtists from '../pages/BrowsingPage/BrowsingPageArtists';
 import BrowsingPageGenres from '../pages/BrowsingPage/BrowsingPageGenres';
+import BrowsingPageAlbumById from '../pages/BrowsingPage/BrowsingPageAlbumById';
+import BrowsingPageArtistById from '../pages/BrowsingPage/BrowsingPageArtistById';
+import BrowsingPageGenreById from '../pages/BrowsingPage/BrowsingPageGenreById';
 
 const Routes = () => {
   return (
@@ -29,7 +32,7 @@ const Routes = () => {
         <BrowsingRoute
           exact
           path="/browse/albums/:id"
-          component={BrowsingPageSongs}
+          component={BrowsingPageAlbumById}
         />
         <BrowsingRoute
           exact
@@ -39,7 +42,7 @@ const Routes = () => {
         <BrowsingRoute
           exact
           path="/browse/artists/:id"
-          component={BrowsingPageSongs}
+          component={BrowsingPageArtistById}
         />
         <BrowsingRoute
           exact
@@ -49,12 +52,7 @@ const Routes = () => {
         <BrowsingRoute
           exact
           path="/browse/genres/:id"
-          component={BrowsingPageSongs}
-        />
-        <BrowsingRoute
-          exact
-          path="/browse/albums"
-          component={BrowsingPageSongs}
+          component={BrowsingPageGenreById}
         />
         <BrowsingRoute
           exact

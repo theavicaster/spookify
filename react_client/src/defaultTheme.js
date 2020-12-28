@@ -23,6 +23,15 @@ const defaultTheme = {
   layout: {
     drawerWidth: 250,
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1080,
+      lg: 1500,
+      xl: 1920,
+    },
+  },
 };
 
 export default defaultTheme;

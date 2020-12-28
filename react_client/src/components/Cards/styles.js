@@ -33,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     borderRadius: '5px',
   },
+  link: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
 }));
 
 export default useStyles;

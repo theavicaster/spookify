@@ -6,6 +6,7 @@ import {
   CardMedia,
   Typography,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import useStyles from './styles';
 
@@ -17,21 +18,23 @@ const GenreCard = ({ data, backgroundColor }) => {
 
   return (
     <Card className={classes.root} style={{ backgroundColor: backgroundColor }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography
-            style={{ fontSize: fontSize }}
-            className={classes.heading}
-          >
-            {data.name}
-          </Typography>
-          {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
-          {data.name === 'Breaking the Habit' && (
-            <div style={{ height: '2em' }} />
-          )}
-        </CardContent>
-        <CardMedia className={classes.media} image={data.photo_url} />
-      </CardActionArea>
+      <Link className={classes.link} to={`/browse/genres/${data.id}`}>
+        <CardActionArea>
+          <CardContent>
+            <Typography
+              style={{ fontSize: fontSize }}
+              className={classes.heading}
+            >
+              {data.name}
+            </Typography>
+            {fontSize === '2em' && <div style={{ height: '1.5em' }} />}
+            {data.name === 'Breaking the Habit' && (
+              <div style={{ height: '2em' }} />
+            )}
+          </CardContent>
+          <CardMedia className={classes.media} image={data.photo_url} />
+        </CardActionArea>
+      </Link>
     </Card>
   );
 };
