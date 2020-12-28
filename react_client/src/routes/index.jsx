@@ -12,6 +12,8 @@ import BrowsingPageAlbumById from '../pages/BrowsingPage/BrowsingPageAlbumById';
 import BrowsingPageArtistById from '../pages/BrowsingPage/BrowsingPageArtistById';
 import BrowsingPageGenreById from '../pages/BrowsingPage/BrowsingPageGenreById';
 import BrowsingPageLikes from '../pages/BrowsingPage/BrowsingPageLikes';
+import BrowsingPagePlaylists from '../pages/BrowsingPage/BrowsingPagePlaylists';
+import BrowsingPagePlaylistById from '../pages/BrowsingPage/BrowsingPagePlaylistById';
 
 const Routes = () => {
   return (
@@ -58,7 +60,12 @@ const Routes = () => {
         <BrowsingRoute
           exact
           path="/browse/playlists"
-          component={BrowsingPageSongs}
+          component={BrowsingPagePlaylists}
+        />
+        <BrowsingRoute
+          exact
+          path="/browse/playlists/:id"
+          component={BrowsingPagePlaylistById}
         />
         <BrowsingRoute
           exact
