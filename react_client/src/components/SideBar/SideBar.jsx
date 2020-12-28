@@ -33,7 +33,7 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
   };
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      console.log(`Search term is ${searchTerm}`); //TODO
+      window.location.href = `/browse/search/${searchTerm}`;
     }
   };
 

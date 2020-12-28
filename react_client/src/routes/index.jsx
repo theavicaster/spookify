@@ -14,6 +14,7 @@ import BrowsingPageGenreById from '../pages/BrowsingPage/BrowsingPageGenreById';
 import BrowsingPageLikes from '../pages/BrowsingPage/BrowsingPageLikes';
 import BrowsingPagePlaylists from '../pages/BrowsingPage/BrowsingPagePlaylists';
 import BrowsingPagePlaylistById from '../pages/BrowsingPage/BrowsingPagePlaylistById';
+import BrowsingPageSearch from '../pages/BrowsingPage/BrowsingPageSearch';
 
 const Routes = () => {
   return (
@@ -69,8 +70,8 @@ const Routes = () => {
         />
         <BrowsingRoute
           exact
-          path="/browse/search"
-          component={BrowsingPageSongs}
+          path="/browse/search/:searchTerm"
+          component={BrowsingPageSearch}
         />
         <BrowsingRoute
           exact

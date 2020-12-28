@@ -5,13 +5,14 @@ import BrowsingLayout from '../layouts/BrowsingLayout/BrowsingLayout';
 
 const BrowsingRoute = ({ component: Component, loggedIn, ...otherProps }) => {
   const id = otherProps.computedMatch.params.id;
+  const searchTerm = otherProps.computedMatch.params.searchTerm;
 
   return (
     <Route
       render={(props) =>
         loggedIn === true ? (
           <BrowsingLayout>
-            <Component id={id} {...props} />
+            <Component id={id} searchTerm={searchTerm} {...props} />
           </BrowsingLayout>
         ) : (
           <Redirect to="/home" />
