@@ -11,6 +11,7 @@ import BrowsingPageGenres from '../pages/BrowsingPage/BrowsingPageGenres';
 import BrowsingPageAlbumById from '../pages/BrowsingPage/BrowsingPageAlbumById';
 import BrowsingPageArtistById from '../pages/BrowsingPage/BrowsingPageArtistById';
 import BrowsingPageGenreById from '../pages/BrowsingPage/BrowsingPageGenreById';
+import BrowsingPageLikes from '../pages/BrowsingPage/BrowsingPageLikes';
 
 const Routes = () => {
   return (
@@ -67,7 +68,7 @@ const Routes = () => {
         <BrowsingRoute
           exact
           path="/browse/likes"
-          component={BrowsingPageSongs}
+          component={BrowsingPageLikes}
         />
       </Switch>
     </Router>
