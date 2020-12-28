@@ -11,13 +11,18 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
   const classes = useStyles();
 
   const [commentsData, setCommentsData] = useState([]);
+  const [likedUsers, setLikedUsers] = useState(data.likedUsers);
 
   const handleAddComment = () => {
     console.log('thanks for clicking me bro');
   };
 
   const handleToggleLike = () => {
-    console.log('thanks for clicking me bro');
+    const toggleLike = async () => {
+      const response = await spookifyAPI.put(`/likes/songs/${data.id}`);
+      setLikedUsers(response.data.likedUsers);
+    };
+    toggleLike();
   };
 
   useEffect(() => {
@@ -31,7 +36,7 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
     };
 
     getComments();
-  }, [data.comments]);
+  }, [data.comments, likedUsers]);
 
   return (
     <Modal openFlag={openFlag} closeHandler={closeHandler}>
@@ -47,12 +52,15 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
       </div>
       <Typography className={classes.subheading}>Likes</Typography>
       <Box textAlign="center">
-        {data.likedUsers.includes(parseInt(currentUser.id)) && (
+        {likedUsers.includes(parseInt(currentUser.id)) ? (
           <Typography className={classes.user}>You liked this song!</Typography>
+        ) : (
+          <Typography className={classes.user}>
+            You have not liked this song
+          </Typography>
         )}
         <Typography className={classes.user}>
-          {data.likedUsers.length}{' '}
-          {data.likedUsers.length === 1 ? 'Like' : 'Likes'}
+          {likedUsers.length} {likedUsers.length === 1 ? 'Like' : 'Likes'}
         </Typography>
         <Button
           onClick={handleToggleLike}
