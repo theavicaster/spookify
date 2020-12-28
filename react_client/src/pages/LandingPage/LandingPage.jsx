@@ -80,11 +80,6 @@ const LandingPage = ({
       try {
         let { data } = await spookifyAPI.post('/users/login', values);
 
-        if (!data) {
-          // when Heroku server first starts, returns empty post
-          data = await spookifyAPI.post('/users/login', values).data;
-        }
-
         const token = data.token;
 
         localStorage.setItem('jwtToken', token);
@@ -93,8 +88,12 @@ const LandingPage = ({
         const decodedJwt = jwt_decode(token);
         dispatchCurrentUser(decodedJwt);
       } catch (error) {
-      
-        dispatchErrors(error.response.data);
+        if (!error.response) {
+          // when Heroku server first starts, returns empty POST
+          postLoginForm();
+        } else {
+          dispatchErrors(error.response.data);
+        }
       }
 
       dispatchLoadingAlert(false);
