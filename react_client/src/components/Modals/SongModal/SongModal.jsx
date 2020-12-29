@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button, Box } from '@material-ui/core';
+import { Typography, Button, Box, IconButton } from '@material-ui/core';
 import ReactPlayer from 'react-player/youtube';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Modal from '../ModalBackdrop/Modal';
+import CommentForm from '../CommentForm/CommentForm';
 import spookifyAPI from '../../../api/spookify';
 import useStyles from './styles';
 
@@ -12,10 +15,8 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
 
   const [commentsData, setCommentsData] = useState([]);
   const [likedUsers, setLikedUsers] = useState(data.likedUsers);
-
-  const handleAddComment = () => {
-    console.log('thanks for clicking me bro');
-  };
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [commentId, setCommentId] = useState(false);
 
   const handleToggleLike = () => {
     const toggleLike = async () => {
@@ -23,6 +24,39 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
       setLikedUsers(response.data.likedUsers);
     };
     toggleLike();
+  };
+
+  const handleDeleteClick = (commentId) => {
+    const reloadComments = async () => {
+      const commentsData = await spookifyAPI.get(`/comments/song/${data.id}`);
+      setCommentsData(commentsData.data);
+    };
+
+    const deleteComment = async () => {
+      await spookifyAPI.delete(`/comments/${commentId}`);
+    };
+
+    deleteComment();
+    reloadComments();
+  };
+
+  const handleClickCommentModalCreate = () => {
+    setCommentId(false);
+    setCommentModalOpen(true);
+  };
+
+  const handleClickCommentModalUpdate = (commentId) => {
+    setCommentId(commentId);
+    setCommentModalOpen(true);
+  };
+
+  const handleCloseCommentModal = () => {
+    const reloadComments = async () => {
+      const commentsData = await spookifyAPI.get(`/comments/song/${data.id}`);
+      setCommentsData(commentsData.data);
+    };
+    setCommentModalOpen(false);
+    reloadComments();
   };
 
   useEffect(() => {
@@ -72,23 +106,51 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
       </Box>
 
       <Typography className={classes.subheading}>Comments</Typography>
-      {commentsData.map((comment) => {
-        return (
-          <Typography>
-            <span className={classes.user}>{comment.user.username} -</span>{' '}
-            {comment.content}
-          </Typography>
-        );
-      })}
+      {commentsData &&
+        commentsData.map((comment) => {
+          return (
+            <div>
+              <Typography>
+                <span className={classes.user}>{comment.user.username} -</span>{' '}
+                {comment.content}
+              </Typography>
+              {comment.user.id === parseInt(currentUser.id) && (
+                <Box textAlign="right">
+                  <IconButton
+                    onClick={() => {
+                      handleClickCommentModalUpdate(comment.id);
+                    }}
+                  >
+                    <EditIcon className={classes.icons} />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      handleDeleteClick(comment.id);
+                    }}
+                  >
+                    <DeleteIcon className={classes.icons} />
+                  </IconButton>
+                </Box>
+              )}
+            </div>
+          );
+        })}
       <Box textAlign="center">
         <Button
-          onClick={handleAddComment}
+          onClick={handleClickCommentModalCreate}
           className={classes.button}
           style={{ margin: 10 }}
         >
           Add Comment
         </Button>
       </Box>
+
+      <CommentForm
+        openFlag={commentModalOpen}
+        closeHandler={handleCloseCommentModal}
+        songId={data.id}
+        commentId={commentId}
+      ></CommentForm>
     </Modal>
   );
 };
