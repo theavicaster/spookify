@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import Modal from '../ModalBackdrop/Modal';
 import CommentForm from '../CommentForm/CommentForm';
+import PlaylistSelectorModal from '../PlaylistSelectorModal/PlaylistSelectorModal';
 import spookifyAPI from '../../../api/spookify';
 import useStyles from './styles';
 
@@ -17,6 +18,24 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
   const [likedUsers, setLikedUsers] = useState(data.likedUsers);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const [commentId, setCommentId] = useState(false);
+  const [playlistMode, setPlaylistMode] = useState('Add');
+  const [playlistSelectorModalOpen, setPlaylistSelectorModalOpen] = useState(
+    false
+  );
+
+  const handleClickPlaylistSelectorModalAdd = () => {
+    setPlaylistMode('Add');
+    setPlaylistSelectorModalOpen(true);
+  };
+
+  const handleClickPlaylistSelectorModalDelete = () => {
+    setPlaylistMode('Delete');
+    setPlaylistSelectorModalOpen(true);
+  };
+
+  const handleClosePlaylistSelectorModal = () => {
+    setPlaylistSelectorModalOpen(false);
+  };
 
   const handleToggleLike = () => {
     const toggleLike = async () => {
@@ -145,12 +164,37 @@ const SongModal = ({ openFlag, closeHandler, data, currentUser }) => {
         </Button>
       </Box>
 
+      <Typography className={classes.subheading}>Playlists</Typography>
+      <Box textAlign="center">
+        <Button
+          onClick={handleClickPlaylistSelectorModalAdd}
+          className={classes.button}
+          style={{ margin: 10 }}
+        >
+          Add to Playlist
+        </Button>
+        <Button
+          onClick={handleClickPlaylistSelectorModalDelete}
+          className={classes.button}
+          style={{ margin: 10 }}
+        >
+          Delete from Playlist
+        </Button>
+      </Box>
+
       <CommentForm
         openFlag={commentModalOpen}
         closeHandler={handleCloseCommentModal}
         songId={data.id}
         commentId={commentId}
       ></CommentForm>
+
+      <PlaylistSelectorModal
+        openFlag={playlistSelectorModalOpen}
+        closeHandler={handleClosePlaylistSelectorModal}
+        songId={data.id}
+        mode={playlistMode}
+      ></PlaylistSelectorModal>
     </Modal>
   );
 };

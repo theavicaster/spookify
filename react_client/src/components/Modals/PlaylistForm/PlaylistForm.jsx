@@ -50,7 +50,7 @@ const PlaylistForm = ({ openFlag, closeHandler, playlistId }) => {
                   name="name"
                   type="text"
                   label="Name"
-                  helperText="Please enter name"
+                  helperText="Please enter playlist name"
                   InputLabelProps={{
                     style: { color: 'black' },
                   }}
