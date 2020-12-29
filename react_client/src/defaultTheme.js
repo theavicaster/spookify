@@ -32,6 +32,25 @@ const defaultTheme = {
       xl: 1920,
     },
   },
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width: '6px',
+          backgroundColor: '#8D99AE',
+        },
+        '*::-webkit-scrollbar-track': {
+          backgroundColor: 'transparent',
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#320b86',
+        },
+        '*::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: '#25085e',
+        },
+      },
+    },
+  },
 };
 
 export default defaultTheme;
