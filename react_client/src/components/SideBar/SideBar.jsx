@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button, Typography } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,15 +23,19 @@ import CategoryIcon from '@material-ui/icons/Category';
 import useStyles from './styles';
 import setJwtToken from '../../utils/setJwtToken';
 import { logout } from '../../redux/actions/userActions';
-import { Button, Typography } from '@material-ui/core';
+import PlaylistForm from '../Modals/PlaylistForm/PlaylistForm'
+
 
 const SideBar = ({ currentUser, dispatchLogout }) => {
   const classes = useStyles();
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [playlistModalOpen, setPlaylistModalOpen] = useState(false);
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && searchTerm.trim().length) {
       window.location.href = `/browse/search/${searchTerm}`;
@@ -42,6 +47,14 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
     setJwtToken(false);
     dispatchLogout();
     window.location.href = '/';
+  };
+
+  const handleClickPlaylistModal = () => {
+    setPlaylistModalOpen(true);
+  };
+
+  const handleClosePlaylistModal = () => {
+    setPlaylistModalOpen(false);
   };
 
   return (
@@ -108,7 +121,7 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
           </ListItem>
         </Link>
 
-        <ListItem button>
+        <ListItem button onClick={handleClickPlaylistModal}>
           <ListItemIcon>
             <EmojiSymbolsIcon className={classes.icons} />
           </ListItemIcon>
@@ -155,6 +168,12 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
         </Link>
       </List>
       <Divider />
+
+      <PlaylistForm
+        openFlag={playlistModalOpen}
+        closeHandler={handleClosePlaylistModal}
+        playlistId={false}
+      ></PlaylistForm>
     </Drawer>
   );
 };
