@@ -18,6 +18,21 @@
 ![ER Diagram](snapshots/database_design.png?raw=true "ER Diagram")
 
 
+### UI Snapshots
+
+---
+
+<details><summary><b>Snapshots</b></summary>
+
+![Landing Page](snapshots/landing_page.png?raw=true "Landing Page")
+![Songs](snapshots/songs.png?raw=true "Songs")
+![Song Display](snapshots/song_display.png?raw=true "Song Display")
+![Search](snapshots/search.png?raw=true "Search")
+![Genres](snapshots/genres.png?raw=true "Genres")
+
+</details>
+
+
 ### REST API Specification
 
 ---
