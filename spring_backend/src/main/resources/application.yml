@@ -18,3 +18,12 @@ spring:
           factory_class: org.redisson.hibernate.RedissonRegionFactory
           redisson:
             fallback: true
+            entity:
+              expiration:
+                time_to_live: 10000
+            collection:
+              expiration:
+                time_to_live: 10000
+            query:
+              expiration:
+                time_to_live: 10000
