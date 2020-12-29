@@ -32,7 +32,7 @@ const SideBar = ({ currentUser, dispatchLogout }) => {
     setSearchTerm(event.target.value);
   };
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && searchTerm.trim().length) {
       window.location.href = `/browse/search/${searchTerm}`;
     }
   };
