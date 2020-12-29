@@ -41,7 +41,6 @@ public class UserService implements UserDetailsService {
     public User saveUser(User user) {
 
         try {
-            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } catch (Exception e) {
             throw new AlreadyExistsException(String.format("Username: %s already exists", user.getUsername()));
