@@ -38,7 +38,7 @@ const LandingPage = ({
     setPunModalLoading(true);
 
     const getJoke = async () => {
-      const { data } = await jokeAPI.get('/random');
+      const { data } = await jokeAPI.get('random_joke');
 
       setPunModalLoading(false);
       setJoke(data);

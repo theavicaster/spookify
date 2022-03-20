@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const jokeAPI = axios.create({
-  baseURL: 'https://official-joke-api.appspot.com/jokes',
+  baseURL: 'https://nova-joke-api.netlify.app/.netlify/functions/index/',
 });
 
 export default jokeAPI;
